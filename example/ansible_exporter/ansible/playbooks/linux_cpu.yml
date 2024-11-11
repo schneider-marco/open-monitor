@@ -5,6 +5,7 @@
     - name: Gather CPU Usage from /proc/stat
       shell: |
         top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}'
+
       register: cpu_usage
 
     - name: Format CPU usage as float without percentage
