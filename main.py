@@ -1,7 +1,7 @@
 import argparse
 from server_management import *
 import json
-from Exporter import *
+from exporter import *
 import time
 from utils import logger
 import threading
@@ -46,7 +46,7 @@ def main() -> None:
             time.sleep(60)
         except Exception as e:
             logger.error(f"An error occurred: {e}")
-            time.sleep(5)  # Eine kurze Pause, bevor erneut versucht wird
+            time.sleep(5)
 
 
 if __name__ == '__main__':

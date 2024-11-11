@@ -6,7 +6,8 @@
 - **Agentless Monitoring**: Utilizes Ansible to collect metrics without requiring agents.
 - **Integration with Prometheus**: Forwards collected data for storage and analysis.
 - **Visualization in Grafana**: Seamless integration with Grafana dashboards for real-time visualizations.
-- **Flexible and Extensible**: Customizable for different use cases and infrastructure environments.
+- **Flexible and Extensible**: Customizable for different use cases and infrastructure environments via ansible playbooks
+- 
 
 ## Prerequisites
 - [Docker](https://www.docker.com/)
@@ -18,6 +19,10 @@
     mkdir open-monitor
     cd open-monitor
    ```
+**Get compose.yaml**:
+   ```bash
+    wget https://raw.githubusercontent.com/schneider-marco/open-monitor/refs/heads/main/compose.yaml
+   ```
 
 **Create data folder**
    ```bash
@@ -27,7 +32,19 @@
     mkdir monitoring_ansible_exporter
    ```
 
-**Get compose.yaml**:
+**Run compose in background**:
    ```bash
-    wget https://raw.githubusercontent.com/schneider-marco/open-monitor/refs/heads/main/compose.yaml
+    docker compose up -d
+   ```
+
+**List running docker**:
+   ```bash
+    docker ps
+   ```
+
+## Update
+**Upgrade to latest version**
+   ```bash
+    docker compose pull
+    docker compose up -d --force-recreate
    ```
