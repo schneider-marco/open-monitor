@@ -1,0 +1,24 @@
+- name: Network Interface Packet and Traffic Information
+  hosts: linux
+  gather_facts: no
+  tasks:
+    - name: Get network interface packet and traffic information
+      ansible.builtin.command: "cat /proc/net/dev"
+      register: net_info
+
+    - name: Initialize network interface usage list
+      ansible.builtin.set_fact:
+        network_usage: []
+
+    - name: Parse each line for sent and received packets and traffic, and append to network_usage
+      ansible.builtin.set_fact:
+        network_usage: "{{ network_usage + [{'source': item.split()[0]|replace(':', ''), 
+                                             'received_packets': item.split()[2],
+                                             'sent_packets': item.split()[10],
+                                             'received_bytes': item.split()[1],
+                                             'sent_bytes': item.split()[9]}] }}"
+      loop: "{{ net_info.stdout_lines[2:] }}"  # Skip the header lines
+
+    - name: network_usage
+      ansible.builtin.debug:
+        msg: "{{ network_usage }}"

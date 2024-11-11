@@ -1,0 +1,24 @@
+- name: system_information
+  hosts: linux
+  gather_facts: yes
+  tasks:
+    - name: Gather System Uptime in seconds as float
+      shell: "awk '{print $1}' /proc/uptime"
+      register: uptime_seconds
+
+    - name: Gather Running Process Count
+      shell: "{{ 'ps -e --no-headers' if ansible_facts['os_family'] == 'RedHat' else 'ps -e --no-heading' }} | wc -l"
+      register: process_count
+
+    - name: Format system information as list of dictionaries
+      set_fact:
+        system_info:
+          - { "hostname": "{{ ansible_facts['hostname'] }}" }
+          - { "uptime_seconds": "{{ uptime_seconds.stdout }}" }
+          - { "process_count": "{{ process_count.stdout }}" }
+          - { "os_family": "{{ ansible_facts['os_family'] }}" }
+          - { "default_ipv4": "{{ ansible_facts['default_ipv4']['address'] | default('N/A') }}" }
+
+    - name: Display system_information
+      ansible.builtin.debug:
+        msg: "{{ system_info }}"

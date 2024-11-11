@@ -1,0 +1,23 @@
+- name: disk_information
+  hosts: linux
+  gather_facts: no
+  tasks:
+    - name: Get disk usage information
+      ansible.builtin.command: "df -k --output=source,size,used,avail"
+      register: disk_info
+
+    - name: Initialize disk usage list
+      ansible.builtin.set_fact:
+        disk_usage: []
+
+    - name: Parse each line, convert to GB, and append to disk_usage
+      ansible.builtin.set_fact:
+        disk_usage: "{{ disk_usage + [{'source': item.split()[0], 
+                                       'size': '%.2f' | format(item.split()[1]|float / 1024 / 1024),
+                                       'used': '%.2f' | format(item.split()[2]|float / 1024 / 1024),
+                                       'available': '%.2f' | format(item.split()[3]|float / 1024 / 1024)}] }}"
+      loop: "{{ disk_info.stdout_lines[1:] }}"  # Skip the header line
+
+    - name: disk_information_in_GB
+      ansible.builtin.debug:
+        msg: "{{ disk_usage }}"

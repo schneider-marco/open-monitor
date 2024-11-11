@@ -1,0 +1,17 @@
+- name: cpu_information
+  hosts: linux
+  gather_facts: no
+  tasks:
+    - name: Gather CPU Usage from /proc/stat
+      shell: |
+        awk '/^cpu / {usage=($2+$4)*100/($2+$4+$5)} END {print usage}' /proc/stat
+      register: cpu_usage
+
+    - name: Format CPU usage as float without percentage
+      set_fact:
+        cpu_usage_value:
+          - { "cpu_percentage": "{{ cpu_usage.stdout | float }}" }
+
+    - name: cpu_usage_percentage
+      debug:
+        msg: "{{ cpu_usage_value }}"

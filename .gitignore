@@ -1,0 +1,6 @@
+.idea
+ansible/sshkeys
+.venv
+artifacts
+TODO before publish
+inventory

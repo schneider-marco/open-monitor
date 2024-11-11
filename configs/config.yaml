@@ -1,0 +1,4 @@
+inventory_path: "ansible/inventory/inventory.ini"
+playbook_path: "ansible/playbooks/"
+
+

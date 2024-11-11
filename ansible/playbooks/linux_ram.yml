@@ -1,0 +1,26 @@
+- name: Retrieve RAM Information and Format as JSON
+  hosts: linux
+  gather_facts: no
+  tasks:
+    - name: Gather Used RAM in MB
+      shell: free -m | awk '/Mem:/ {print $3}'
+      register: used_ram_mb
+
+    - name: Gather Total RAM in MB
+      shell: free -m | awk '/Mem:/ {print $2}'
+      register: total_ram_mb
+
+    - name: Gather Free RAM in MB
+      shell: free -m | awk '/Mem:/ {print $7}'
+      register: free_ram_mb
+
+    - name: Format RAM usage as JSON in list format
+      set_fact:
+        ram_usage:
+          - { "ram_usage_total": "{{ total_ram_mb.stdout }}" }
+          - { "ram_usage_used": "{{ used_ram_mb.stdout }}" }
+          - { "ram_usage_free": "{{ free_ram_mb.stdout }}" }
+
+    - name: ram_information
+      debug:
+        msg: "{{ ram_usage }}"
