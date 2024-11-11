@@ -7,7 +7,6 @@
 - **Integration with Prometheus**: Forwards collected data for storage and analysis.
 - **Visualization in Grafana**: Seamless integration with Grafana dashboards for real-time visualizations.
 - **Flexible and Extensible**: Customizable for different use cases and infrastructure environments via ansible playbooks
-- 
 
 ## Prerequisites
 - [Docker](https://www.docker.com/)
@@ -45,6 +44,5 @@
 ## Update
 **Upgrade to latest version**
    ```bash
-    docker compose pull
-    docker compose up -d --force-recreate
+    docker compose pull && docker compose up -d --force-recreate
    ```
