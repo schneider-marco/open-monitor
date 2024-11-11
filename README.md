@@ -12,6 +12,13 @@
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
+## Installation (with with setup skript)
+**Create application folder**
+   ```bash
+curl -s https://raw.githubusercontent.com/username/repository/main/install_open_monitor.sh | bash
+   ```
+
+
 ## Installation (with default configs)
 **Create application folder**
    ```bash
