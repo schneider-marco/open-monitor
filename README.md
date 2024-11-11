@@ -29,5 +29,5 @@
 
 **Get compose.yaml**:
    ```bash
-    wget https://raw.githubusercontent.com/schneider-marco/open-monitor/compose.yaml
+    wget https://raw.githubusercontent.com/schneider-marco/open-monitor/refs/heads/main/compose.yaml
    ```
