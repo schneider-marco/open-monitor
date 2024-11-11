@@ -23,8 +23,5 @@ def setup():
         if not os.path.isdir(dir_path):
             logger.error(f"Error: The directory '{dir_path}' does not exist.")
             sys.exit(1)
-        elif not os.listdir(dir_path):
-            logger.error(f"Error: The directory '{dir_path}' is empty.")
-            sys.exit(1)
 
     logger.debug("Setup completed successfully. All required files and directories are present.")

@@ -7,6 +7,7 @@ services:
     volumes:
       - ./data/monitoring_ansible_exporter/ansible:/app/ansible
       - ./data/monitoring_ansible_exporter/config:/app/config
+      - ./data/monitoring_ansible_exporter/config:/app/config
 
     expose:
       - 8000

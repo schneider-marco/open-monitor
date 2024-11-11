@@ -15,8 +15,7 @@
 ## Installation (with default configs)
 **Create application folder**
    ```bash
-    mkdir open-monitor
-    cd open-monitor
+    mkdir open-monitor && cd open-monitor
    ```
 **Get Files**:
    ```bash
@@ -25,16 +24,13 @@
 
 **Create data folder**
    ```bash
-  mkdir -p data/monitoring_prometheus data/monitoring_ansible_exporter data/monitoring_ansible_exporter/sshkeys
+  mkdir -p data/monitoring_prometheus data/monitoring_ansible_exporter data/monitoring_ansible_exporter/ansible/sshkeys
 
    ```
 
 **Copy default configs**
    ```bash
-    cp open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/
-    cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml
-    cp open-monitor/compose.yaml .
-    rm -rf ./open-monitor
+cp -r open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/ && cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml && cp open-monitor/compose.yaml . && rm -rf ./open-monitor
    ```
 
 **Run compose in background**:
