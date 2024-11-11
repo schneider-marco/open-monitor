@@ -8,7 +8,11 @@ mkdir -p open-monitor && cd open-monitor
 
 # Clone repository
 echo "Cloning repository..."
-git clone https://github.com/schneider-marco/open-monitor.git
+if [ ! -d "open-monitor" ]; then
+  git clone https://github.com/schneider-marco/open-monitor.git
+else
+  echo "Repository already exists, skipping clone..."
+fi
 
 # Create data directories
 echo "Creating data directories..."
@@ -16,9 +20,25 @@ mkdir -p data/monitoring_prometheus data/monitoring_ansible_exporter data/monito
 
 # Copy default configurations
 echo "Copying default configurations..."
-cp -r open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/
-cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml
-cp open-monitor/compose.yaml .
+for file in open-monitor/example/ansible_exporter/*; do
+  if [ -e "data/monitoring_ansible_exporter/$(basename "$file")" ]; then
+    echo "File $(basename "$file") already exists, skipping..."
+  else
+    cp -r "$file" data/monitoring_ansible_exporter/
+  fi
+done
+
+if [ ! -f "data/monitoring_prometheus/prometheus.yml" ]; then
+  cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml
+else
+  echo "File prometheus.yml already exists, skipping..."
+fi
+
+if [ ! -f "compose.yaml" ]; then
+  cp open-monitor/compose.yaml .
+else
+  echo "File compose.yaml already exists, skipping..."
+fi
 
 # Remove repository folder
 echo "Removing temporary files..."
