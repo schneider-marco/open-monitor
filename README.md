@@ -15,7 +15,7 @@
 ## Installation (with with setup skript)
 **Create application folder**
    ```bash
-curl -s https://raw.githubusercontent.com/username/repository/main/install_open_monitor.sh | bash
+curl -s https://raw.githubusercontent.com/schneider-marco/open-monitor/refs/heads/main/setup.sh | bash
    ```
 
 
