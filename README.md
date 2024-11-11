@@ -22,13 +22,13 @@
     git clone https://github.com/schneider-marco/open-monitor.git
    ```
 
-**Create data folder**
+**Create data folders**
    ```bash
   mkdir -p data/monitoring_prometheus data/monitoring_ansible_exporter data/monitoring_ansible_exporter/ansible/sshkeys
 
    ```
 
-**Copy default configs**
+**Copy default configs && cleanup**
    ```bash
 cp -r open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/ && cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml && cp open-monitor/compose.yaml . && rm -rf ./open-monitor
    ```
@@ -45,9 +45,3 @@ cp -r open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/ 
 
 ## Advanced Installation (without default config)
 
-
-## Update
-**Upgrade to latest version**
-   ```bash
-    docker compose pull && docker compose up -d --force-recreate
-   ```
