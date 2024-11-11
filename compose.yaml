@@ -1,6 +1,6 @@
 services:
   exporter:
-    image: ansible_exporter
+    image: ghcr.io/schneider-marco/open-monitor:latest
     container_name: monitoring_ansible_exporter
     networks:
       - monitoring_network
