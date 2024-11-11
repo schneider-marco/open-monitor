@@ -1,54 +1,83 @@
+
 # Open-Monitor
 
-**Open-Monitor** is an agentless monitoring program based on [Ansible](https://www.ansible.com/) that enables the collection of system and application metrics. These metrics are forwarded to [Prometheus](https://prometheus.io/) for visualization in [Grafana](https://grafana.com/). This tool provides a simple and effective way to implement a comprehensive monitoring solution without the need to install additional software agents on the monitored systems.
+**Open-Monitor** is an agentless, Ansible-based monitoring program that collects system and application metrics without needing agents on the monitored systems. The collected data is forwarded to [Prometheus](https://prometheus.io/) for storage and then visualized in real-time with [Grafana](https://grafana.com/), making it a powerful, easy-to-deploy monitoring solution.
 
 ## Features
-- **Agentless Monitoring**: Utilizes Ansible to collect metrics without requiring agents.
-- **Integration with Prometheus**: Forwards collected data for storage and analysis.
-- **Visualization in Grafana**: Seamless integration with Grafana dashboards for real-time visualizations.
-- **Flexible and Extensible**: Customizable for different use cases and infrastructure environments via ansible playbooks
+- **Agentless Monitoring**: Uses Ansible to collect metrics without requiring agents on target systems.
+- **Prometheus Integration**: Sends all collected metrics to Prometheus for efficient data storage and analysis.
+- **Real-Time Visualization**: Integrates seamlessly with Grafana, enabling real-time visualizations through customizable dashboards.
+- **Flexible and Extensible**: Easily adaptable for various use cases and infrastructures using Ansible playbooks.
 
 ## Prerequisites
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-## Installation (with with setup skript)
-**Create application folder**
-   ```bash
+---
+
+## Quick Installation (with Setup Script)
+To quickly set up Open-Monitor, use the following command:
+
+```bash
 curl -s https://raw.githubusercontent.com/schneider-marco/open-monitor/refs/heads/main/setup.sh | bash
-   ```
+```
 
+This script will create the necessary folder structure and files for Open-Monitor.
 
-## Installation (with default configs)
-**Create application folder**
+---
+
+## Manual Installation
+If you prefer a manual setup, follow these steps:
+
+### 1. Create Application Folder
    ```bash
-    mkdir open-monitor && cd open-monitor
+   mkdir open-monitor && cd open-monitor
    ```
-**Get Files**:
+
+### 2. Clone Repository
    ```bash
-    git clone https://github.com/schneider-marco/open-monitor.git
+   git clone https://github.com/schneider-marco/open-monitor.git
    ```
 
-**Create data folders**
+### 3. Create Data Folders
    ```bash
-  mkdir -p data/monitoring_prometheus data/monitoring_ansible_exporter data/monitoring_ansible_exporter/ansible/sshkeys
-
+   mkdir -p data/monitoring_prometheus data/monitoring_ansible_exporter data/monitoring_ansible_exporter/ansible/sshkeys
    ```
 
-**Copy default configs && cleanup**
+### 4. Copy Default Configurations and Clean Up
    ```bash
-cp -r open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/ && cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml && cp open-monitor/compose.yaml . && rm -rf ./open-monitor
+   cp -r open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/    && cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml    && cp open-monitor/compose.yaml .    && rm -rf ./open-monitor
    ```
 
-**Run compose in background**:
+### 5. Start Docker Compose in Detached Mode
    ```bash
-    docker compose up -d
+   docker compose up -d
    ```
 
-**List running docker**:
+### 6. Verify Running Docker Containers
    ```bash
-    docker ps
+   docker ps
    ```
 
-## Advanced Installation (without default config)
+---
 
+## Adding a New Client
+
+To monitor additional systems, follow these steps:
+
+1. **Add SSH Key**: Place the SSH key for each client in the following directory:
+   ```plaintext
+   open-monitor/data/monitoring_ansible_exporter/ansible/sshkeys/
+   ```
+
+2. **Add Client to Inventory**: Specify the client details in the inventory file:
+   ```plaintext
+   open-monitor/data/monitoring_ansible_exporter/ansible/inventory/inventory.ini
+   ```
+
+3. **Install SSH Key on Client**: Install the SSH key on the client for secure monitoring.
+
+
+---
+
+Enjoy streamlined, agentless monitoring with Open-Monitor!
