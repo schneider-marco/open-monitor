@@ -1,5 +1,5 @@
 .idea
-ansible/sshkeys
+example/ansible/sshkeys
 .venv
 artifacts
 TODO before publish

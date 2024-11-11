@@ -1,10 +1,13 @@
 services:
   exporter:
-    build:
-      dockerfile: ./Dockerfile
+    image: ansible_exporter
     container_name: monitoring_ansible_exporter
     networks:
       - monitoring_network
+    volumes:
+      - ./data/monitoring_ansible_exporter/ansible:/app/ansible
+      - ./data/monitoring_ansible_exporter/config:/app/config
+
     expose:
       - 8000
 
@@ -15,7 +18,7 @@ services:
       - monitoring_network
     volumes:
       - prometheus_data:/prometheus
-      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/monitoring_prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     expose:
@@ -28,8 +31,6 @@ services:
       - monitoring_network
     ports:
       - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
     volumes:
