@@ -12,23 +12,29 @@
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-## Installation
+## Installation (with default configs)
 **Create application folder**
    ```bash
     mkdir open-monitor
     cd open-monitor
    ```
-**Get compose.yaml**:
+**Get Files**:
    ```bash
-    wget https://raw.githubusercontent.com/schneider-marco/open-monitor/refs/heads/main/compose.yaml
+    git clone https://github.com/schneider-marco/open-monitor.git
    ```
 
 **Create data folder**
    ```bash
-    mkdir data
-    cd data
-    mkdir monitoring_prometheus
-    mkdir monitoring_ansible_exporter
+  mkdir -p data/monitoring_prometheus data/monitoring_ansible_exporter data/monitoring_ansible_exporter/sshkeys
+
+   ```
+
+**Copy default configs**
+   ```bash
+    cp open-monitor/example/ansible_exporter/* data/monitoring_ansible_exporter/
+    cp open-monitor/example/prometheus/prometheus.yml data/monitoring_prometheus/prometheus.yml
+    cp open-monitor/compose.yaml .
+    rm -rf ./open-monitor
    ```
 
 **Run compose in background**:
@@ -40,6 +46,9 @@
    ```bash
     docker ps
    ```
+
+## Advanced Installation (without default config)
+
 
 ## Update
 **Upgrade to latest version**

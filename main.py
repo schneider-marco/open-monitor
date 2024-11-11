@@ -6,7 +6,12 @@ import time
 from utils import logger
 import threading
 
+from utils.setup import setup
+
+
 def main() -> None:
+    setup()
+
     parser = argparse.ArgumentParser(description="Open Command & Control")
     parser.add_argument('--monitor', action='store_true', help="Show Monitoring")
     parser.add_argument('--check-hosts', action='store_true', help="Show host connectivity")
@@ -32,10 +37,11 @@ def main() -> None:
     logger.info("Prometheus metrics available at http://localhost:8000/metrics")
 
     server_thread = threading.Thread(target=start_server)
-    server_thread.daemon = True  # Damit der Thread sich beendet, wenn das Hauptprogramm beendet wird
+    server_thread.daemon = True
     server_thread.start()
 
     while True:
+        setup()
         try:
             upstate_data = check_reachable_hosts()
             logger.debug(f"Upstate Data Received: {json.dumps(upstate_data, indent=4)}")
